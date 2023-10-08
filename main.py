@@ -14,12 +14,23 @@ pygame.init()
 screen = pygame.display.set_mode((window_size, window_size))
 pygame.display.set_caption('Go Board')
 
+current_play = 1
+
 # Main loop
 running = True
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            print(event.pos, )
+            x, y = board.map_pos_to_closest_possible_field(event.pos)
+            board.board[x][y] = current_play
+
+            if current_play == 1:
+                current_play = 2
+            else:
+                current_play = 1
 
     board.draw(screen)
 

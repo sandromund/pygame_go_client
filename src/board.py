@@ -34,7 +34,7 @@ class Board:
             for j in range(self.size):
                 if self.board[i][j] == 1:
                     self.draw_stone(i, j, self.white, screen)
-                elif self.board[i][j] == 1:
+                elif self.board[i][j] == 2:
                     self.draw_stone(i, j, self.black, screen)
 
     def draw_stone(self, x, y, color, screen, radius=None):
@@ -58,6 +58,38 @@ class Board:
         screen.fill(self.background_color)
         self.draw_grid(screen)
         self.draw_star_points(screen)
+        self.draw_stone(10, 10, color=self.black, screen=screen)
         self.board[0, 0] = 1
         self.board[18, 18] = 1
         self.draw_stones(screen)
+
+    def map_pos_to_closest_possible_field(self, screen_position):
+        x, y = screen_position
+
+        left = (x // self.cell_size) * self.cell_size
+        right = left + self.cell_size
+        up = (y // self.cell_size) * self.cell_size
+        down = up + self.cell_size
+
+        if abs(left - x) <= abs(right - x):
+            new_x = left
+        else:
+            new_x = right
+
+        if abs(up - y) <= abs(down - y):
+            new_y = up
+        else:
+            new_y = down
+
+        return self.pixel_to_board_position((new_x, new_y))
+
+    def pixel_to_board_position(self, screen_position):
+        x, y = screen_position
+
+        x_new = int(x // self.cell_size) - 1
+        y_new = int(y // self.cell_size) - 1
+
+        x_new = min(max(0, x_new), 18)
+        y_new = min(max(0, y_new), 18)
+
+        return x_new, y_new
