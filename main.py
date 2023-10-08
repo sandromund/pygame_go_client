@@ -4,6 +4,7 @@ import sys
 from src.board import Board
 
 board = Board(size=9)
+board.cell_size = 100
 
 window_size = board.cell_size * (board.size + 1)
 
