@@ -86,7 +86,7 @@ class Board:
         x_new = int(x // self.cell_size) - 1
         y_new = int(y // self.cell_size) - 1
 
-        x_new = min(max(0, x_new), 18)
-        y_new = min(max(0, y_new), 18)
+        x_new = min(max(0, x_new), self.size - 1)
+        y_new = min(max(0, y_new), self.size - 1)
 
         return x_new, y_new
