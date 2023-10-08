@@ -58,9 +58,6 @@ class Board:
         screen.fill(self.background_color)
         self.draw_grid(screen)
         self.draw_star_points(screen)
-        self.draw_stone(10, 10, color=self.black, screen=screen)
-        self.board[0, 0] = 1
-        self.board[18, 18] = 1
         self.draw_stones(screen)
 
     def map_pos_to_closest_possible_field(self, screen_position):
